@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html 
+    lang="es"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://thymeleaf.org/"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}"
+    >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo}"></title>
+</head>
+<body>
+    <div layout:fragment="contenido" class="container-fluid">
+        <div class="card my-4">
+            <div class="card-header">
+                <h5 th:text="${titulo}" class="card-title"></h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped table-hover table-bordered table-sm">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Imagen</th>
+                            <th>Cód. Barras</th>
+                            <th>Descripción</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="p : ${productos}">
+                            <td th:text="${p.id}">1</td>
+                            <td style="max-width: 40px;">
+                                <img height="100px" th:src="@{${p.linkImagen}}" alt="Foto">
+                            </td>
+                            <td th:text="${p.codigoBarras}">1212454512124</td>
+                            <td th:text="${p.descripcion}">Coca Cola 2.25 lts</td>
+                            <td th:text="${p.precio}">$350.00</td>
+                            <td th:text="${p.stock}">500</td>
+                            <td style="max-width: 35px;">
+                                <a th:href="@{/productos/editar/} + ${p.id}" class="btn btn-sm btn-warning" title="Editar">
+                                    <i class='bx bxs-edit bx-spin' ></i>
+                                </a>    
+                                <a th:href="@{/productos/borrar/} + ${p.id}" class="btn btn-sm btn-danger" title="Borrar" 
+                                    onclick="return confirm('¿Estás seguro de borrar el registro?')">
+                                    <i class='bx bxs-trash bx-spin' ></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Imagen</th>
+                            <th>Cód. Barras</th>
+                            <th>Descripción</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="card-footer">
+                <a th:href="@{/productos/nuevo}" class="btn btn-outline-primary float-end">
+                    Nuevo Producto
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script th:fragment="js"></script>
+</body>
+</html>
