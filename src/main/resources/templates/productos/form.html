@@ -36,7 +36,7 @@
                         </div>
                         <div class="form">
                             <label for="pre" class="form-label">Precio</label>
-                            <input id="pre" type="text" class="form-control" 
+                            <input id="pre" type="text" class="form-control money" 
                                 th:field="*{precio}"
                                 th:errorclass="'form-control alert-danger'" />
                             <small class="form-label text-danger" th:errors="*{precio}"></small>
@@ -74,6 +74,8 @@
     </div>
 
     <!-- Scripts -->
-    <script th:fragment="js"></script>
+    <script th:fragment="js">
+        $('.money').mask("#.##0,00", {reverse: true});
+    </script>
 </body>
 </html>

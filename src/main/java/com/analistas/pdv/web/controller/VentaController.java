@@ -88,6 +88,16 @@ public class VentaController {
             linea.setPrecioActual(producto.getPrecio());
             linea.setCantidad(cant);
 
+            //No tendría que llegar acá...
+            if(cant > producto.getStock()) {
+                model.addAttribute("titulo", "Nueva Venta");
+                model.addAttribute("danger", "No hay stock sufiente...");
+                return "ventas/form";
+            }
+
+            //Actualizar stock del producto:
+            producto.setStock(producto.getStock() - cant);
+
             venta.addLinea(linea);
         }
 

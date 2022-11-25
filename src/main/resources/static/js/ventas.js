@@ -1,3 +1,6 @@
+let stock = {};
+const stocks = [];
+
 $(document).ready(function() {
 
     $("#buscar_productos").autocomplete({
@@ -11,6 +14,10 @@ $(document).ready(function() {
                 },
                 success: (data) => {
                     response($.map(data, (item) => {
+
+                        stock = {id: item.id, stock: item.stock};
+                        stocks.push(stock);
+
                         return {
                             value: item.id,
                             label: `${item.descripcion} - $${item.precio}`
@@ -61,8 +68,19 @@ const lineasUtil = {
     } ,
     calcularSubtotal : function (id, precio, cantidad) {
         //$("#subtotal_" + id): forma antigua...
-        $(`#subtotal_${id}`).html((parseFloat(precio) * parseInt(cantidad)).toFixed(2));
-        this.calcularTotal();
+        let stk = stocks.find(i => i.id === id);  //Buscar el stock que coincida con el id del producto...
+
+        if(cantidad > stk.stock) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'No hay stock suficiente!'
+            });
+            $(`#cantidad_${id}`).val(stk.stock);
+        } else {
+            $(`#subtotal_${id}`).html((parseFloat(precio) * parseInt(cantidad)).toFixed(2));
+            this.calcularTotal();
+        }
     } ,
     esRepetido: function (id) {
         let result = false;
