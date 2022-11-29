@@ -87,6 +87,25 @@
                         </a>
                     </li>
                 </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a id="ddlink" href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+                            <i class='bx bx-user-circle bx-tada bx-flip-vertical' ></i>
+                            <span>Hola </span>
+                            <span sec:authentication="name"></span>
+                            <span sec:authentication="principal.authorities"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end ms-4" aria-labelledby="ddlink">
+                            <li>
+                                <a class="dropdown-item" href="#">Cuenta</a>
+                                <a class="dropdown-item" href="#">COnfiguración</a>
+                                <form id="frmSalir" th:action="@{/logout}" method="post">
+                                    <a class="dropdown-item" href="#" onclick="$('#frmSalir').submit();">Cerrar Sesión</a>
+                                </form>        
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
