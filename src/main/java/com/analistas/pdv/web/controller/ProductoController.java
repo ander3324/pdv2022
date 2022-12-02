@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,6 +37,7 @@ public class ProductoController {
     ICategoriaService categoriaService;
     
     @GetMapping("/listado")
+    @Secured({"ROLE_ADMIN", "ROLE_REPOSITOR", "ROLE_CAJERO"})
     public String listado(Model model) {
 
         model.addAttribute("titulo", "Listado de Productos");
@@ -45,6 +47,7 @@ public class ProductoController {
     }
 
     @GetMapping("/nuevo")
+    @Secured({"ROLE_ADMIN", "ROLE_REPOSITOR"})
     public String nuevo (Model model) {
 
         model.addAttribute("titulo", "Nuevo Producto");
@@ -54,6 +57,7 @@ public class ProductoController {
     }
 
     @GetMapping("/editar/{id}")
+    @Secured({"ROLE_ADMIN", "ROLE_REPOSITOR"})
     public String editar (@PathVariable("id") Long id, Model model) {
 
         Producto producto = productoService.buscarPorId(id);
@@ -65,6 +69,7 @@ public class ProductoController {
     }
 
     @PostMapping("/guardar")
+    @Secured({"ROLE_ADMIN", "ROLE_REPOSITOR"})
     public String guardar (@Valid Producto producto, BindingResult result, 
         @RequestParam("cat") Long idCat, 
         Model model, RedirectAttributes msgFlash, SessionStatus status) {
@@ -85,6 +90,7 @@ public class ProductoController {
     }
 
     @GetMapping("/borrar/{id}")
+    @Secured({"ROLE_ADMIN", "ROLE_REPOSITOR"})
     public String deshabOrHabProducto(@PathVariable("id") Long id, RedirectAttributes msgFlash) {
 
         Producto producto = productoService.buscarPorId(id);

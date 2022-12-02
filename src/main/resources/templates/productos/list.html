@@ -42,10 +42,10 @@
                             <td th:text="${p.precio}">$350.00</td>
                             <td th:text="${p.stock}">500</td>
                             <td style="max-width: 35px;">
-                                <a th:href="@{/productos/editar/} + ${p.id}" class="btn btn-sm btn-warning" title="Editar">
+                                <a sec:authorize="${hasRole('REPOSITOR')}" th:href="@{/productos/editar/} + ${p.id}" class="btn btn-sm btn-warning" title="Editar">
                                     <i class='bx bxs-edit bx-spin' ></i>
                                 </a>    
-                                <a th:href="@{/productos/borrar/} + ${p.id}" class="btn btn-sm btn-danger" title="Borrar" 
+                                <a sec:authorize="${hasRole('REPOSITOR')}" th:href="@{/productos/borrar/} + ${p.id}" class="btn btn-sm btn-danger" title="Borrar" 
                                     onclick="return confirm('¿Estás seguro de borrar el registro?')">
                                     <i class='bx bxs-trash bx-spin' ></i>
                                 </a>
@@ -66,7 +66,7 @@
                 </table>
             </div>
             <div class="card-footer">
-                <a th:href="@{/productos/nuevo}" class="btn btn-outline-primary float-end">
+                <a sec:authorize="${hasRole('REPOSITOR')}" th:href="@{/productos/nuevo}" class="btn btn-outline-primary float-end">
                     Nuevo Producto
                 </a>
             </div>
